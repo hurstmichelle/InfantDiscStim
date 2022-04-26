@@ -6,11 +6,11 @@ from PIL import Image, ImageDraw
 # script by Michelle Hurst, hurst.mich@gmail.com, April 2022
 
 # setting up canvas size
-stimW = 500
-stimH = 500
+stimW = 400
+stimH = 600
 
 # setting global properties of the stim (for now, we could vary them though, e.g., vary dot size so that area is varied)
-radius = 10
+radius = 15
 gap = 10
 set1Color = "gold"
 set2Color = "blue"
@@ -62,7 +62,6 @@ def generateDots(radius, gap, set1Color, set2Color, set1, set2):
             curDot = dot(random.randrange(radius + gap, stimW - radius - gap, 1), random.randrange(radius + gap, stimH - radius - gap, 1), set1, set2, set1Color)
         else:
             curDot = dot(random.randrange(radius + gap, stimW - radius - gap, 1), random.randrange(radius + gap, stimH - radius - gap, 1), set1, set2, set2Color)
-        
         # now checking that the new dot doesn't overlap with the previously made dots
         overlap = False
 
@@ -75,8 +74,7 @@ def generateDots(radius, gap, set1Color, set2Color, set1, set2):
 
         if overlap == False:
             circleList.append(curDot)
-
-        n = n + 1
+            n = n + 1
 
 # draw the circles
 def create_circle(x, y, r, dotColor): #center coordinates, radius, dotColor which will be used for the outline and fill
@@ -92,7 +90,7 @@ def create_circle(x, y, r, dotColor): #center coordinates, radius, dotColor whic
 for j in range(0, len(stimList)):
 
     # setting up new image from PIL
-    stim = Image.new('RGBA', (stimW, stimH), color = 'grey')
+    stim = Image.new('RGBA', (stimW, stimH), color = 'black')
     draw = ImageDraw.Draw(stim)
 
     # getting the number of dots in set1 and set2 from stimList
