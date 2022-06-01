@@ -10,37 +10,55 @@ stimW = 400
 stimH = 600
 
 # setting global properties of the stim (for now, we could vary them though, e.g., vary dot size so that area is varied)
-radius = 15
+radius = 10
 gap = 10
-set1Color = "gold"
-set2Color = "blue"
+colorOptions = ["sandybrown", "dodgerblue"]
+hueNames = ["orange", "blue"]
 
 # this is the list of stim we want to make
 # includes: set1 size, set2 size, habtype as an indicator of stim category
 stimList = [
     [8, 4, "hab21"],
-    [12, 6, "hab21"],
+    [10, 5, "hab21"],
     [14, 7, "hab21"],
+    [16, 8, "hab21"],
     [20, 10, "hab21"],
     [24, 12, "hab21"],
+    [28, 14, "hab21"],
     [30, 15, "hab21"],
-    [38, 19, "hab21"],
-
-    [12, 3, "hab41"],
-    [16, 4, "hab41"],
-    [24, 6, "hab41"],
-    [28, 7, "hab41"],
-    [36, 9, "hab41"],
-    [40, 10, "hab41"],
-    [48, 12, "hab41"],
+    [34, 17, "hab21"],
+    [36, 18, "hab21"],
+    [40, 20, "hab21"],
+    [42, 21, "hab21"],
+    [46, 23, "hab21"],
 
     [9, 3, "hab31"],
+    [12, 4, "hab31"],
     [15, 5, "hab31"],
     [21, 7, "hab31"],
+    [24, 8, "hab31"],
     [27, 9, "hab31"],
-    [36, 12, "hab31"],
+    [30, 10, "hab31"],
+    [33, 11, "hab31"],
+    [39, 13, "hab31"],
     [42, 14, "hab31"],
+    [45, 15, "hab31"],
     [48, 16, "hab31"],
+    [51, 17, "hab31"],
+
+    [8, 2, "hab41"],
+    [12, 3, "hab41"],
+    [16, 4, "hab41"],
+    [20, 5, "hab41"],
+    [24, 6, "hab41"],
+    [28, 7, "hab41"],
+    [32, 8, "hab41"],
+    [36, 9, "hab41"],
+    [40, 10, "hab41"],
+    [44, 11, "hab41"],
+    [48, 12, "hab41"],
+    [52, 13, "hab41"],
+    [56, 14, "hab41"],
 ]
 
 # creating the functions needed to create the specs for circles, to draw the circles, and to export the image
@@ -87,27 +105,35 @@ def create_circle(x, y, r, dotColor): #center coordinates, radius, dotColor whic
 # now to actually create the stim
 # looping through the stimList and creating the dots needed for each
 
-for j in range(0, len(stimList)):
+for v in range(1, 3): #to make two sets
 
-    # setting up new image from PIL
-    stim = Image.new('RGBA', (stimW, stimH), color = 'black')
-    draw = ImageDraw.Draw(stim)
+    for m in range(0, len(colorOptions)): # to make a set for each color to be dominant, to be counterbalanced
 
-    # getting the number of dots in set1 and set2 from stimList
-    set1 = stimList[j][0]
-    set2 = stimList[j][1]
+        majorColor = colorOptions[m]
+        minorColor = colorOptions[(m+1)%2]
 
-    # create specs for circles and add them to new circleList
-    circleList = []
-    generateDots(radius, gap, set1Color, set2Color, set1, set2)
+        for j in range(0, len(stimList)): #to actually make each stimulus
 
-    # draw each circle in the circleList
-    for c in range(0, len(circleList)):
-        create_circle(circleList[c].x, circleList[c].y, radius, circleList[c].color)
-        
-    # save image with name of the form disc_habtype_set1_set2
-    fileName = "disc_" + stimList[j][2] + "_" + str(stimList[j][0]) + "_" + str(stimList[j][1]) + ".png"
-    stim.save("DiscStim/" + fileName)
+            # setting up new image from PIL
+            stim = Image.new('RGBA', (stimW, stimH), color = 'black')
+            draw = ImageDraw.Draw(stim)
+            draw.rectangle([(0,0), (stimW - 1,stimH - 1)], outline = 'grey')
+
+            # getting the number of dots in set1 and set2 from stimList
+            set1 = stimList[j][0]
+            set2 = stimList[j][1]
+
+            # create specs for circles and add them to new circleList
+            circleList = []
+            generateDots(radius, gap, majorColor, minorColor, set1, set2)
+
+            # draw each circle in the circleList
+            for c in range(0, len(circleList)):
+                create_circle(circleList[c].x, circleList[c].y, radius, circleList[c].color)
+                
+            # save image with name of the form disc_habtype_set1_set2
+            fileName = "disc_" + str(hueNames[m]) + "_" + stimList[j][2] + "_" +  str(stimList[j][0]) + "_" + str(stimList[j][1]) + "_V" +str(v) +  ".png"
+            stim.save("DiscStim/" + fileName)
 
 
 
