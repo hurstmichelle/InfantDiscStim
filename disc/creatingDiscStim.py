@@ -10,9 +10,9 @@ stimW = 400
 stimH = 600
 
 # setting global properties of the stim (for now, we could vary them though, e.g., vary dot size so that area is varied)
-radius = 10
+radius = 12
 gap = 10
-colorOptions = ["sandybrown", "dodgerblue"]
+colorOptions = ["darkorange", "blue"]
 hueNames = ["orange", "blue"]
 
 # this is the list of stim we want to make
@@ -115,7 +115,7 @@ for v in range(1, 3): #to make two sets
         for j in range(0, len(stimList)): #to actually make each stimulus
 
             # setting up new image from PIL
-            stim = Image.new('RGBA', (stimW, stimH), color = 'black')
+            stim = Image.new('RGBA', (stimW, stimH), color = 'white')
             draw = ImageDraw.Draw(stim)
             draw.rectangle([(0,0), (stimW - 1,stimH - 1)], outline = 'grey')
 

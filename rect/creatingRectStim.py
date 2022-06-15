@@ -10,10 +10,10 @@ stimW = 400
 stimH = 600
 
 # setting global properties of the stim (for now, we could vary them though, e.g., vary dot size so that area is varied)
-colorOptions = ["sandybrown", "dodgerblue"]
+colorOptions = ["darkorange", "blue"]
 hueNames = ["orange", "blue"]
 unit = 5 # height for each unit of the fraction
-radius = 10 #of the corresponding circles
+radius = 12 #of the corresponding circles
 gap = 10 #minimum space between edge of canvas and rectangle
 
 #setting up stim parameters
@@ -86,11 +86,11 @@ for v in range(1, 3): #to make two sets
         for j in range(0, len(stimList)):
 
             # setting up new image from PIL
-            stim = Image.new('RGBA', (stimW, stimH), color = 'black')
+            stim = Image.new('RGBA', (stimW, stimH), color = 'white')
             draw = ImageDraw.Draw(stim)
             draw.rectangle([(0,0), (stimW - 1,stimH - 1)], outline = 'grey')
 
-            width = random.randrange(round(stimW*(1/4)), round(stimW*(1/3)), 1) # total width, randomly selected
+            width = random.randrange(round(stimW*(1/6)), round(stimW*(1/3)), 1) # total width, randomly selected
             unitHeight = (math.pi * (radius*radius))/width # creating pixle unit of height, based on width so that area of a single dot will be the area of a single "unit"
 
             set1 = stimList[j][0] #getting the number of units in the bottom set
